@@ -19,9 +19,9 @@ public class TermMember {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)
-    private Member member_id;
+    private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "term_id", nullable = false)
-    private Term term_id;
+    private Term term;
 }

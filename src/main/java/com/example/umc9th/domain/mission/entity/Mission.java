@@ -32,8 +32,8 @@ public class Mission {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id", nullable = false)
-    private Store store_id;
+    private Store store;
 
-    @OneToMany(mappedBy = "mission_id")
+    @OneToMany(mappedBy = "mission")
     private List<MemberMission> member_missions = new ArrayList<>();
 }

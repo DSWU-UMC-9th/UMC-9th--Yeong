@@ -24,10 +24,10 @@ public class Food {
     @Enumerated(EnumType.STRING)
     private FoodType name;
 
-    @OneToMany(mappedBy = "food_id")
+    @OneToMany(mappedBy = "food")
     private List<Store> stores = new ArrayList<>();
 
-    @OneToMany(mappedBy = "food_id")
+    @OneToMany(mappedBy = "food")
     private List<MemberFood> member_foods = new ArrayList<>();
 }
 

@@ -3,6 +3,7 @@ package com.example.umc9th.domain.member.entity;
 import com.example.umc9th.domain.location.entity.Location;
 import com.example.umc9th.domain.term.entity.mapping.TermMember;
 import com.example.umc9th.global.entity.BaseEntity;
+import com.example.umc9th.global.entity.auth.enums.SocialType;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -21,7 +22,7 @@ import com.example.umc9th.domain.member.enums.Address;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 @Table(name = "member")
-public class Member extends BaseEntity { //created_at, deleted_at 포함
+public class Member extends BaseEntity { //created_at, updated_at 포함
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long member_id;
@@ -29,56 +30,61 @@ public class Member extends BaseEntity { //created_at, deleted_at 포함
     @Column(name = "name" ,length = 3, nullable = false )
     private String name;
 
-
     @Column(name = "gender", nullable = false)
     @Enumerated(EnumType.STRING)
     @Builder.Default
-    private Gender gender = Gender.FEMALE;
+    private Gender gender = Gender.NONE;
 
     @Column(name = "birth", nullable = false)
     private LocalDateTime birth;
 
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "adress" ,nullable = false)
     private Address address;
 
-    @Column(nullable = false)
+    @Column(name = " detail_address"  , nullable = false)
     private String detail_address;
 
-    @Column(nullable = false, unique = true)
+    @Column(name= "email", nullable = false)
     private String email;
 
-    @Column(nullable = false)
+    @Column(name = "point" , nullable = false)
     private Integer point;
 
-    @Column(nullable = false, length = 20)
+    @Column(name = "phone_num")
     private String phone_num;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "location_id", nullable = false)
-    private Location location_id;
 
-
-
-    @Column(nullable = false)
+    @Column(name= "social_uid" ,nullable = false)
     private int social_uid;
 
-    @Column(nullable = false)
-    private int social_type;
+    @Column(name = "social_type", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private SocialType socialType;
+
+    @Column(name = "deleted_at", nullable = false)
+    private LocalDateTime deletedAt;
+
+
 
 
     // 연관관계
-    @OneToMany(mappedBy = "member_id")
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "location_id", nullable = false)
+    private Location location;
+
+    @OneToMany(mappedBy = "member")
     private List<Review> reviews = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member_id")
-    private List<MemberMission> member_missions = new ArrayList<>();
+    @OneToMany(mappedBy = "member")
+    private List<MemberMission> missions = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member_id")
-    private List<MemberFood> member_foods = new ArrayList<>();
+    @OneToMany(mappedBy = "member")
+    private List<MemberFood> foods = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member_id")
-    private List<TermMember> term_members = new ArrayList<>();
+    @OneToMany(mappedBy = "member")
+    private List<TermMember> term = new ArrayList<>();
 }
