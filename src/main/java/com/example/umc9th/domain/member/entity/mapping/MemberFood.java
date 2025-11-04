@@ -19,10 +19,10 @@ public class MemberFood {
     // 외래키: member_id
     @ManyToOne
     @JoinColumn(name = "member_id", nullable = false)
-    private Member member_id;
+    private Member member;
 
     // 외래키: food_id
     @ManyToOne
     @JoinColumn(name = "food_id", nullable = false)
-    private Food food_id;
+    private Food food;
 }

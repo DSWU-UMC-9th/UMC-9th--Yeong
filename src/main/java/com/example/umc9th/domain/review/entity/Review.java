@@ -22,22 +22,24 @@ public class Review extends BaseEntity {
     private Long review_id;
 
     @Column(nullable = false)
-    private Integer score;
+    private Float score;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
+    // 연관관계
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)
-    private Member member_id;
+    private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id", nullable = false)
-    private Store store_id;
+    private Store store;
 
 //    @OneToMany(mappedBy = "review")
 //    private List<ReviewPhoto> photos = new ArrayList<>();
 
-    @OneToMany(mappedBy = "review_id")
+    @OneToMany(mappedBy = "review")
     private List<Reply> replies = new ArrayList<>();
 }

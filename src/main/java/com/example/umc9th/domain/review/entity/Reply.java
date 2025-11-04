@@ -20,5 +20,5 @@ public class Reply {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "review_id", nullable = false)
-    private Review review_id;
+    private Review review;
 }

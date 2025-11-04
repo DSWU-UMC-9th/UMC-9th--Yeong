@@ -25,7 +25,7 @@ public class Term {
     @Column(nullable = false)
     private TermName name;
 
-    @OneToMany(mappedBy = "term_id")
+    @OneToMany(mappedBy = "term")
     private List<TermMember> term_members = new ArrayList<>();
 }
 

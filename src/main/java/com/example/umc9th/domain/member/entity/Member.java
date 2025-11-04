@@ -22,7 +22,7 @@ import com.example.umc9th.domain.member.enums.Address;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 @Table(name = "member")
-public class Member extends BaseEntity { //created_at, deleted_at 포함
+public class Member extends BaseEntity { //created_at, updated_at 포함
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long member_id;
@@ -64,23 +64,27 @@ public class Member extends BaseEntity { //created_at, deleted_at 포함
     @Enumerated(EnumType.STRING)
     private SocialType socialType;
 
+    @Column(name = "deleted_at", nullable = false)
+    private LocalDateTime deletedAt;
+
+
 
 
     // 연관관계
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id", nullable = false)
-    private Location location_id;
+    private Location location;
 
-    @OneToMany(mappedBy = "member_id")
+    @OneToMany(mappedBy = "member")
     private List<Review> reviews = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member_id")
-    private List<MemberMission> member_missions = new ArrayList<>();
+    @OneToMany(mappedBy = "member")
+    private List<MemberMission> missions = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member_id")
-    private List<MemberFood> member_foods = new ArrayList<>();
+    @OneToMany(mappedBy = "member")
+    private List<MemberFood> foods = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member_id")
-    private List<TermMember> term_members = new ArrayList<>();
+    @OneToMany(mappedBy = "member")
+    private List<TermMember> term = new ArrayList<>();
 }

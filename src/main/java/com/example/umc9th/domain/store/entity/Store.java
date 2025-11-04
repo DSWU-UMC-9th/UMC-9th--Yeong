@@ -34,16 +34,16 @@ public class Store {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id", nullable = false)
-    private Location location_id;
+    private Location location;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "food_id", nullable = false)
-    private Food food_id;
+    private Food food;
 
-    @OneToMany(mappedBy = "store_id")
+    @OneToMany(mappedBy = "store")
     private List<Review> reviews = new ArrayList<>();
 
-    @OneToMany(mappedBy = "store_id")
+    @OneToMany(mappedBy = "store")
     private List<Mission> missions = new ArrayList<>();
 }
 
