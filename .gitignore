@@ -1,0 +1,46 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+
+/build/generated/
+
+# === Build artifacts ===
+/build/
+/build/**
+/out/
+/target/
+
+# === Gradle ===
+.gradle/
+/.gradle/**
+!gradle/wrapper/gradle-wrapper.jar  # wrapper 파일만 예외로 둠
+
+# === IDE (IntelliJ / VSCode) ===
+.idea/
+/.vscode/
+/*.iml
+
+# === QueryDSL generated sources ===
+/src/main/generated/
+/build/generated/
+/build/generated/querydsl/
+/src/main/generated/**
+
+# === macOS metadata ===
+.DS_Store
+src/.DS_Store
+src/main/.DS_Store
+.idea/.DS_Store
+build/.DS_Store
+
+# === Logs ===
+*.log
+
+# === Temporary files ===
+build/tmp/
+build/tmp/**
