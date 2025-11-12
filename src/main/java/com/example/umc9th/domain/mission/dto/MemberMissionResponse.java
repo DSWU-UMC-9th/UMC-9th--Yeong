@@ -1,15 +1,23 @@
 package com.example.umc9th.domain.mission.dto;
 
-import java.time.LocalDateTime;
-import java.time.LocalDate;
+import com.example.umc9th.domain.mission.enums.MissionState;
+import com.example.umc9th.domain.review.enums.ReviewState;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-public interface MemberMissionResponse {
-    Long getMemberMissionId();  // um.user_mission_id
-    Long getMissionId();      // m.mission_id
-    String getTodo();         // m.todo
-    Integer getReward();      // m.reward
-    LocalDate getDueDate();   // m.due_date
-    Integer getMissionState();// um.mission_state
-    Integer getReviewState(); // um.review_state
-    LocalDateTime getCreatedAt(); // um.create_date
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+@Getter
+@AllArgsConstructor
+public class MemberMissionResponse {
+
+    private Long memberMissionId;
+    private Long missionId;
+    private String todo;
+    private Integer reward;
+    private LocalDateTime dueDate;
+    private MissionState missionState;
+    private ReviewState reviewState;
+    private LocalDateTime createdAt;
 }

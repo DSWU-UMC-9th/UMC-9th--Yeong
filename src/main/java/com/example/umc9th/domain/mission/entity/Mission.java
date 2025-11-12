@@ -1,5 +1,6 @@
 package com.example.umc9th.domain.mission.entity;
 
+import com.example.umc9th.domain.mission.enums.MissionState;
 import com.example.umc9th.domain.store.entity.Store;
 import com.example.umc9th.domain.member.entity.mapping.MemberMission;
 import jakarta.persistence.*;
@@ -26,6 +27,9 @@ public class Mission {
 
     @Column(nullable = false)
     private String reward;
+
+    @Column(nullable = false)
+    private MissionState mission_state;
 
     @Column(nullable = false)
     private LocalDateTime due_date;
