@@ -6,11 +6,9 @@ import com.example.umc9th.domain.review.dto.ReviewResponse;
 import com.example.umc9th.domain.review.entity.QReview;
 import com.example.umc9th.domain.review.entity.Review;
 import com.example.umc9th.domain.store.entity.QStore;
-import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -20,14 +18,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReviewRepositoryImpl implements ReviewQueryDsl {
 
-    private final EntityManager em;
-
-
+    private final JPAQueryFactory queryFactory; // 스프링 빈으로 등록된 factory만 사용!
 
     @Override
     public List<ReviewResponse> findMyReviews(Predicate predicate) {
 
-        JPAQueryFactory queryFactory = new JPAQueryFactory(em);
         QReview review = QReview.review;
         QStore store = QStore.store;
         QMember member = QMember.member;
@@ -35,7 +30,7 @@ public class ReviewRepositoryImpl implements ReviewQueryDsl {
         return queryFactory
                 .select(Projections.constructor(ReviewResponse.class,
                         review.review_id,
-                        store.name.as("storeName"),
+                        store.name,
                         review.content,
                         review.score))
                 .from(review)
@@ -47,8 +42,6 @@ public class ReviewRepositoryImpl implements ReviewQueryDsl {
 
     @Override
     public List<Review> searchReview(Predicate predicate) {
-
-        JPAQueryFactory queryFactory = new JPAQueryFactory(em);
 
         QReview review = QReview.review;
         QStore store = QStore.store;

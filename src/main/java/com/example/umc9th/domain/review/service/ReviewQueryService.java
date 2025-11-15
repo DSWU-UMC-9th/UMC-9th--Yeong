@@ -21,7 +21,7 @@ public class ReviewQueryService {
     private final ReviewRepository reviewRepository;
 
 
-    public List<ReviewResponse> findMyReviews(Long memberId, String storeName, Integer ratingGroup){
+    public List<ReviewResponse> findMyReviews(Long memberId, Long storeId, Integer ratingGroup){
 
         QReview review = QReview.review;
         QStore store = QStore.store;
@@ -33,13 +33,13 @@ public class ReviewQueryService {
             builder.and(review.member_id.member_id.eq(memberId));
         }
 
-        if (storeName != null && !storeName.isBlank()) {
-            builder.and(store.name.containsIgnoreCase(storeName));
+        if (storeId != null) {
+            builder.and(review.store_id.store_id.eq(storeId));
         }
 
         if (ratingGroup != null) {
             double lower = ratingGroup;
-            double upper = ratingGroup + 1;
+            double upper = ratingGroup + 0.9;
             builder.and(review.score.between(lower, upper));
         }
         return reviewRepository.findMyReviews(builder);

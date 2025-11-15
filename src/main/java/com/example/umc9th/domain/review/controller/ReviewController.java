@@ -33,10 +33,10 @@ public class ReviewController {
     @GetMapping("/my")
     public ApiResponse<List<ReviewResponse>> getMyReviews(
             @RequestParam(required = false) Long memberId,
-            @RequestParam(required = false) String storeName,
+            @RequestParam(required = false) Long storeId,
             @RequestParam(required = false) Integer ratingGroup
     ) {
-        List<ReviewResponse> reviews = reviewQueryService.findMyReviews(memberId, storeName, ratingGroup);
+        List<ReviewResponse> reviews = reviewQueryService.findMyReviews(memberId, storeId, ratingGroup);
         return ApiResponse.onSuccess(GeneralSuccessCode.OK, reviews);
     }
 }
