@@ -20,7 +20,7 @@ import java.util.List;
 public class Mission {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long mission_id;
+    private Long missionId;
 
     @Column(nullable = false)
     private String todo;
@@ -29,15 +29,15 @@ public class Mission {
     private String reward;
 
     @Column(nullable = false)
-    private MissionState mission_state;
+    private MissionState state;
 
     @Column(nullable = false)
-    private LocalDateTime due_date;
+    private LocalDateTime dueDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id", nullable = false)
-    private Store store_id;
+    private Store store;
 
-    @OneToMany(mappedBy = "mission_id")
-    private List<MemberMission> member_missions = new ArrayList<>();
+    @OneToMany(mappedBy = "mission")
+    private List<MemberMission> memberMissions = new ArrayList<>();
 }

@@ -19,7 +19,7 @@ import java.util.List;
 public class Review extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long review_id;
+    private Long reviewId;
 
     @Column(nullable = false)
     private Integer score;
@@ -29,15 +29,15 @@ public class Review extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)
-    private Member member_id;
+    private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id", nullable = false)
-    private Store store_id;
+    private Store store;
 
 //    @OneToMany(mappedBy = "review")
 //    private List<ReviewPhoto> photos = new ArrayList<>();
 
-    @OneToMany(mappedBy = "review_id")
+    @OneToMany(mappedBy = "review")
     private List<Reply> replies = new ArrayList<>();
 }

@@ -17,20 +17,20 @@ import lombok.*;
 public class MemberMission extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long member_mission_id;
+    private Long memberMissionId;
 
     @Column(nullable = false)
-    private MissionState mission_state;
+    private MissionState missionState;
 
     @Column(nullable = false)
-    private ReviewState review_state;
+    private ReviewState reviewState;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)
-    private Member member_id;
+    private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mission_id", nullable = false)
-    private Mission mission_id;
+    private Mission mission;
 }
 

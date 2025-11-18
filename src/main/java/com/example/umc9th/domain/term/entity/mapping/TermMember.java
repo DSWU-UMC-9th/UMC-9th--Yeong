@@ -15,13 +15,13 @@ import lombok.*;
 
 public class TermMember {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long term_member_id;
+    private Long termMemberId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)
-    private Member member_id;
+    private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "term_id", nullable = false)
-    private Term term_id;
+    private Term term;
 }

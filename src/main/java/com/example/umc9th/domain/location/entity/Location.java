@@ -17,14 +17,14 @@ import java.util.List;
 public class Location {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long location_id;
+    private Long locationId;
 
     @Column(nullable = false, length = 255)
     private String name;
 
-    @OneToMany(mappedBy = "location_id")
+    @OneToMany(mappedBy = "location")
     private List<Member> members = new ArrayList<>();
 
-    @OneToMany(mappedBy = "location_id")
+    @OneToMany(mappedBy = "location")
     private List<Store> stores = new ArrayList<>();
 }

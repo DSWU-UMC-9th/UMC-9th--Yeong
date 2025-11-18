@@ -25,7 +25,7 @@ import com.example.umc9th.domain.member.enums.Address;
 public class Member extends BaseEntity { //created_at, deleted_at 포함
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long member_id;
+    private Long memberId;
 
     @Column(name = "name" ,length = 3, nullable = false )
     private String name;
@@ -38,13 +38,12 @@ public class Member extends BaseEntity { //created_at, deleted_at 포함
     @Column(name = "birth", nullable = false)
     private LocalDateTime birth;
 
-
     @Enumerated(EnumType.STRING)
     @Column(name = "adress" ,nullable = false)
     private Address address;
 
-    @Column(name = " detail_address"  , nullable = false)
-    private String detail_address;
+    @Column(name = "detail_address"  , nullable = false)
+    private String detailAddress;
 
     @Column(name= "email", nullable = false)
     private String email;
@@ -53,34 +52,30 @@ public class Member extends BaseEntity { //created_at, deleted_at 포함
     private Integer point;
 
     @Column(name = "phone_num")
-    private String phone_num;
-
-
+    private String phoneNum;
 
     @Column(name= "social_uid" ,nullable = false)
-    private int social_uid;
+    private int socialUid;
 
     @Column(name = "social_type", nullable = false)
     @Enumerated(EnumType.STRING)
     private SocialType socialType;
 
-
-
     // 연관관계
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id", nullable = false)
-    private Location location_id;
+    private Location location;
 
-    @OneToMany(mappedBy = "member_id")
+    @OneToMany(mappedBy = "member")
     private List<Review> reviews = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member_id")
-    private List<MemberMission> member_missions = new ArrayList<>();
+    @OneToMany(mappedBy = "member")
+    private List<MemberMission> memberMissions = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member_id")
-    private List<MemberFood> member_foods = new ArrayList<>();
+    @OneToMany(mappedBy = "member")
+    private List<MemberFood> memberFoods = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member_id")
-    private List<TermMember> term_members = new ArrayList<>();
+    @OneToMany(mappedBy = "member")
+    private List<TermMember> termMembers = new ArrayList<>();
 }

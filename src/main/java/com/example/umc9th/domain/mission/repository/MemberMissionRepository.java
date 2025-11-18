@@ -1,17 +1,17 @@
-package com.example.umc9th.domain.mission.repository;
-
-import com.example.umc9th.domain.mission.dto.MemberMissionResponse;
-import com.example.umc9th.domain.member.entity.mapping.MemberMission;
-import com.example.umc9th.domain.mission.enums.MissionState;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
-import java.time.LocalDateTime;
-
-import java.util.List;
+//package com.example.umc9th.domain.mission.repository;
+//
+//import com.example.umc9th.domain.mission.dto.MemberMissionResponse;
+//import com.example.umc9th.domain.member.entity.mapping.MemberMission;
+//import com.example.umc9th.domain.mission.enums.MissionState;
+//import org.springframework.data.domain.Page;
+//import org.springframework.data.domain.Pageable;
+//import org.springframework.data.jpa.repository.JpaRepository;
+//import org.springframework.data.jpa.repository.Query;
+//import org.springframework.data.repository.query.Param;
+//import org.springframework.stereotype.Repository;
+//import java.time.LocalDateTime;
+//
+//import java.util.List;
 
 //@Repository
 //public interface MemberMissionRepository extends JpaRepository<MemberMission, Long> {

@@ -19,15 +19,15 @@ import java.util.List;
 public class Food {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long food_id;
+    private Long foodId;
 
     @Enumerated(EnumType.STRING)
     private FoodType name;
 
-    @OneToMany(mappedBy = "food_id")
+    @OneToMany(mappedBy = "food")
     private List<Store> stores = new ArrayList<>();
 
-    @OneToMany(mappedBy = "food_id")
-    private List<MemberFood> member_foods = new ArrayList<>();
+    @OneToMany(mappedBy = "food")
+    private List<MemberFood> memberFoods = new ArrayList<>();
 }
 
