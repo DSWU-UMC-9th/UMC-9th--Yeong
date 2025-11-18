@@ -1,9 +1,11 @@
 package com.example.umc9th.domain.review.controller;
 
 import com.example.umc9th.domain.review.converter.ReviewConverter;
+import com.example.umc9th.domain.review.dto.ReviewRequest;
 import com.example.umc9th.domain.review.dto.ReviewResponse;
 import com.example.umc9th.domain.review.entity.Review;
 import com.example.umc9th.domain.review.service.ReviewQueryService;
+import com.example.umc9th.domain.review.service.ReviewService;
 import com.example.umc9th.global.apiPayload.ApiResponse;
 import com.example.umc9th.global.apiPayload.code.GeneralSuccessCode;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,26 @@ import java.util.List;
 public class ReviewController {
 
     private final ReviewQueryService reviewQueryService;
+    private final ReviewService reviewService;
+
+    // 가게에 리뷰 추가하기 API
+    @PostMapping
+    public ApiResponse<ReviewResponse> addReview(
+            @RequestParam Long memberId,
+            @RequestBody ReviewRequest request
+            //@RequestHeader("Authorization") String token
+
+    ) {
+        //String accessToken = token.replace("Bearer ", "");
+
+        Review saved = reviewService.createReview(memberId, request);
+
+        return ApiResponse.onSuccess(
+                GeneralSuccessCode.OK,
+                ReviewConverter.toResponse(saved)
+        );
+    }
+
 
     @GetMapping("/search")
     public ApiResponse<List<ReviewResponse>> searchReview(

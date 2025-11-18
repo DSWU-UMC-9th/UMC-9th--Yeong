@@ -12,6 +12,8 @@ import lombok.*;
 @Entity
 @Getter @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class MemberMission extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

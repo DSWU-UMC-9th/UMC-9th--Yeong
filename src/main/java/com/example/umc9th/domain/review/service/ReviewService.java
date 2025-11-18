@@ -2,6 +2,8 @@ package com.example.umc9th.domain.review.service;
 
 import com.example.umc9th.domain.member.entity.Member;
 import com.example.umc9th.domain.member.repository.MemberRepository;
+import com.example.umc9th.domain.review.converter.ReviewConverter;
+import com.example.umc9th.domain.review.dto.ReviewRequest;
 import com.example.umc9th.domain.review.entity.Review;
 import com.example.umc9th.domain.review.repository.ReviewRepository;
 import com.example.umc9th.domain.store.entity.Store;
@@ -19,20 +21,12 @@ public class ReviewService {
     private final StoreRepository storeRepository;
 
     @Transactional
-    public Long createReview(Long loginMemberId, Long storeId, int score, String content) {
-        Member member = memberRepository.findById(loginMemberId)
-                .orElseThrow(() -> new IllegalArgumentException("member not found"));
-        Store store = storeRepository.findById(storeId)
-                .orElseThrow(() -> new IllegalArgumentException("store not found"));
+    public Review createReview(Long loginMemberId, ReviewRequest reviewRequest) {
+        Member member = memberRepository.findById(loginMemberId).orElse(null);
+        Store store = storeRepository.findById(reviewRequest.getStoreId()).orElse(null);
 
-        Review review = Review.builder()
-                .score(score)
-                .content(content)
-                .member_id(member)
-                .store_id(store)
-                .build();
-
-        return reviewRepository.save(review).getReview_id();
+        Review review = ReviewConverter.toEntity(member,store, reviewRequest);
+        return reviewRepository.save(review);
     }
 }
 
