@@ -1,7 +1,6 @@
 package com.example.umc9th.domain.review.converter;
 
 import com.example.umc9th.domain.member.entity.Member;
-import com.example.umc9th.domain.member.repository.MemberRepository;
 import com.example.umc9th.domain.review.dto.ReviewRequest;
 import com.example.umc9th.domain.review.dto.ReviewResponse;
 import com.example.umc9th.domain.review.entity.Review;

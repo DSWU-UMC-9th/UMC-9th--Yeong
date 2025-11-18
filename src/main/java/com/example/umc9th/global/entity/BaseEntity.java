@@ -17,9 +17,9 @@ import java.time.LocalDateTime;
 public class BaseEntity{
     @CreatedDate
     @Column(name = "create_at", nullable = false)
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt=LocalDateTime.now();
 
     @LastModifiedDate
     @Column(name = "updated_at", nullable = false)
-    private LocalDateTime updatedAt;
+    private LocalDateTime updatedAt=LocalDateTime.now();
 }

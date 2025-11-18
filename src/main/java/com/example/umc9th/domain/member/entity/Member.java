@@ -1,20 +1,20 @@
 package com.example.umc9th.domain.member.entity;
 
 import com.example.umc9th.domain.location.entity.Location;
+import com.example.umc9th.domain.member.entity.mapping.MemberFood;
+import com.example.umc9th.domain.member.entity.mapping.MemberMission;
+import com.example.umc9th.domain.member.enums.Address;
+import com.example.umc9th.domain.member.enums.Gender;
+import com.example.umc9th.domain.review.entity.Review;
 import com.example.umc9th.domain.term.entity.mapping.TermMember;
 import com.example.umc9th.global.entity.BaseEntity;
 import com.example.umc9th.global.entity.auth.enums.SocialType;
 import jakarta.persistence.*;
 import lombok.*;
-import java.time.LocalDateTime;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.example.umc9th.domain.member.enums.Gender;
-import com.example.umc9th.domain.member.entity.mapping.MemberFood;
-import com.example.umc9th.domain.member.entity.mapping.MemberMission;
-import com.example.umc9th.domain.review.entity.Review;
-import com.example.umc9th.domain.member.enums.Address;
 
 @Entity
 @Builder
@@ -36,7 +36,7 @@ public class Member extends BaseEntity { //created_at, deleted_at 포함
     private Gender gender = Gender.NONE;
 
     @Column(name = "birth", nullable = false)
-    private LocalDateTime birth;
+    private LocalDate birth;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "adress" ,nullable = false)
@@ -49,7 +49,7 @@ public class Member extends BaseEntity { //created_at, deleted_at 포함
     private String email;
 
     @Column(name = "point" , nullable = false)
-    private Integer point;
+    private Integer point=0;
 
     @Column(name = "phone_num")
     private String phoneNum;
@@ -59,7 +59,7 @@ public class Member extends BaseEntity { //created_at, deleted_at 포함
 
     @Column(name = "social_type", nullable = false)
     @Enumerated(EnumType.STRING)
-    private SocialType socialType;
+    private SocialType socialType = SocialType.LOCAL;
 
     // 연관관계
 

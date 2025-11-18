@@ -12,28 +12,28 @@
 //import java.time.LocalDateTime;
 //
 //import java.util.List;
-
+//
 //@Repository
 //public interface MemberMissionRepository extends JpaRepository<MemberMission, Long> {
 //    @Query("""
 //    SELECT new com.example.umc9th.domain.mission.dto.MemberMissionResponse(
-//        mm.member_mission_id,
-//        m.mission_id,
+//        mm.memberMissionId,
+//        m.missionId,
 //        m.todo,
 //        CAST(m.reward AS integer),
-//        CAST(m.due_date AS date),
-//        mm.mission_state,
+//        CAST(m.dueDate AS date),
+//        mm.missionState,
 //        CASE
-//            WHEN mm.review_state = com.example.umc9th.domain.review.enums.ReviewState.NOT_WRITTEN THEN 0
-//            WHEN mm.review_state = com.example.umc9th.domain.review.enums.ReviewState.WRITTEN THEN 1
+//            WHEN mm.reviewState = com.example.umc9th.domain.review.enums.ReviewState.NOT_WRITTEN THEN 0
+//            WHEN mm.reviewState = com.example.umc9th.domain.review.enums.ReviewState.WRITTEN THEN 1
 //            ELSE 2
 //        END,
 //        mm.createdAt
 //    )
 //    FROM MemberMission mm
-//    JOIN mm.mission_id m
-//    WHERE mm.member_id.member_id = :loginMemberId
-//      AND mm.mission_state IN :states
+//    JOIN mm.mission m
+//    WHERE mm.member.memberId = :loginMemberId
+//      AND mm.missionState IN :states
 //    ORDER BY mm.createdAt DESC
 //""")
 //    Page<MemberMissionResponse> findMemberMissions(

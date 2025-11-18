@@ -1,7 +1,7 @@
 package com.example.umc9th.domain.food.enums;
 
 public enum FoodType {
-    NAME1,
+    KOREAN,
     NAME2,
     NAME3
 }
