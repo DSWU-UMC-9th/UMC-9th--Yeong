@@ -1,15 +1,40 @@
-package com.example.umc9th.domain.mission.dto;
-
-import java.time.LocalDateTime;
-import java.time.LocalDate;
-
-public interface MemberMissionResponse {
-    Long getMemberMissionId();  // um.user_mission_id
-    Long getMissionId();      // m.mission_id
-    String getTodo();         // m.todo
-    Integer getReward();      // m.reward
-    LocalDate getDueDate();   // m.due_date
-    Integer getMissionState();// um.mission_state
-    Integer getReviewState(); // um.review_state
-    LocalDateTime getCreatedAt(); // um.create_date
-}
+//package com.example.umc9th.domain.mission.dto;
+//
+//import com.example.umc9th.domain.mission.enums.MissionState;
+//import lombok.Getter;
+//
+//import java.time.LocalDate;
+//import java.time.LocalDateTime;
+//
+//@Getter
+//public class MemberMissionResponse {
+//
+//    private Long memberMissionId;
+//    private Long missionId;
+//    private String todo;
+//    private Integer reward;
+//    private LocalDate dueDate;
+//    private MissionState missionState;
+//    private Integer reviewState;
+//    private LocalDateTime createdAt;
+//
+//    public MemberMissionResponse(
+//            Long memberMissionId,
+//            Long missionId,
+//            String todo,
+//            Integer reward,
+//            LocalDate dueDate,
+//            MissionState missionState,
+//            Integer reviewState,
+//            LocalDateTime createdAt
+//    ) {
+//        this.memberMissionId = memberMissionId;
+//        this.missionId = missionId;
+//        this.todo = todo;
+//        this.reward = reward;
+//        this.dueDate = dueDate;
+//        this.missionState = missionState;
+//        this.reviewState = reviewState;
+//        this.createdAt = createdAt;
+//    }
+//}

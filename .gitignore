@@ -1,37 +1,46 @@
-HELP.md
-.gradle
-build/
-!gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**/build/
-!**/src/test/**/build/
+# Default ignored files
+/shelf/
+/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
+/build/generated/
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-out/
-!**/src/main/**/out/
-!**/src/test/**/out/
+# === Build artifacts ===
+/build/
+/build/**
+/out/
+/target/
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
+# === Gradle ===
+.gradle/
+/.gradle/**
+!gradle/wrapper/gradle-wrapper.jar  # wrapper 파일만 예외로 둠
 
-### VS Code ###
-.vscode/
+# === IDE (IntelliJ / VSCode) ===
+.idea/
+/.vscode/
+/*.iml
+
+# === QueryDSL generated sources ===
+/src/main/generated/
+/build/generated/
+/build/generated/querydsl/
+/src/main/generated/**
+
+# === macOS metadata ===
+.DS_Store
+src/.DS_Store
+src/main/.DS_Store
+.idea/.DS_Store
+build/.DS_Store
+
+# === Logs ===
+*.log
+
+# === Temporary files ===
+build/tmp/
+build/tmp/**

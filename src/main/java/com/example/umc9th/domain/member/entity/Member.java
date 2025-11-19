@@ -1,20 +1,20 @@
 package com.example.umc9th.domain.member.entity;
 
 import com.example.umc9th.domain.location.entity.Location;
+import com.example.umc9th.domain.member.entity.mapping.MemberFood;
+import com.example.umc9th.domain.member.entity.mapping.MemberMission;
+import com.example.umc9th.domain.member.enums.Address;
+import com.example.umc9th.domain.member.enums.Gender;
+import com.example.umc9th.domain.review.entity.Review;
 import com.example.umc9th.domain.term.entity.mapping.TermMember;
 import com.example.umc9th.global.entity.BaseEntity;
 import com.example.umc9th.global.entity.auth.enums.SocialType;
 import jakarta.persistence.*;
 import lombok.*;
-import java.time.LocalDateTime;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.example.umc9th.domain.member.enums.Gender;
-import com.example.umc9th.domain.member.entity.mapping.MemberFood;
-import com.example.umc9th.domain.member.entity.mapping.MemberMission;
-import com.example.umc9th.domain.review.entity.Review;
-import com.example.umc9th.domain.member.enums.Address;
 
 @Entity
 @Builder
@@ -22,10 +22,10 @@ import com.example.umc9th.domain.member.enums.Address;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 @Table(name = "member")
-public class Member extends BaseEntity { //created_at, updated_at 포함
+public class Member extends BaseEntity { //created_at, deleted_at 포함
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long member_id;
+    private Long memberId;
 
     @Column(name = "name" ,length = 3, nullable = false )
     private String name;
@@ -36,39 +36,30 @@ public class Member extends BaseEntity { //created_at, updated_at 포함
     private Gender gender = Gender.NONE;
 
     @Column(name = "birth", nullable = false)
-    private LocalDateTime birth;
-
+    private LocalDate birth;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "adress" ,nullable = false)
     private Address address;
 
-    @Column(name = " detail_address"  , nullable = false)
-    private String detail_address;
+    @Column(name = "detail_address"  , nullable = false)
+    private String detailAddress;
 
     @Column(name= "email", nullable = false)
     private String email;
 
     @Column(name = "point" , nullable = false)
-    private Integer point;
+    private Integer point=0;
 
     @Column(name = "phone_num")
-    private String phone_num;
-
-
+    private String phoneNum;
 
     @Column(name= "social_uid" ,nullable = false)
-    private int social_uid;
+    private int socialUid;
 
     @Column(name = "social_type", nullable = false)
     @Enumerated(EnumType.STRING)
-    private SocialType socialType;
-
-    @Column(name = "deleted_at", nullable = false)
-    private LocalDateTime deletedAt;
-
-
-
+    private SocialType socialType = SocialType.LOCAL;
 
     // 연관관계
 
@@ -80,11 +71,11 @@ public class Member extends BaseEntity { //created_at, updated_at 포함
     private List<Review> reviews = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")
-    private List<MemberMission> missions = new ArrayList<>();
+    private List<MemberMission> memberMissions = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")
-    private List<MemberFood> foods = new ArrayList<>();
+    private List<MemberFood> memberFoods = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")
-    private List<TermMember> term = new ArrayList<>();
+    private List<TermMember> termMembers = new ArrayList<>();
 }

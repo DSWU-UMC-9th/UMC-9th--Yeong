@@ -1,9 +1,14 @@
 package com.example.umc9th.domain.member.dto;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-public interface MemberProfileResponse {
-    String getNickname();            // m.name AS nickname
-    String getEmail();               // m.email
-    String getPhoneNum();            // m.phone_num AS phoneNum
-    String getPhoneVerifiedStatus(); // CASE WHEN ...
-    Integer getPoint();              // m.point
+@Getter
+@AllArgsConstructor
+
+public class MemberProfileResponse {
+    private String nickname;           // m.name
+    private String email;              // m.email
+    private String phoneNum;           // m.phoneNum
+    private String phoneVerifiedStatus;// "인증 완료"/"미인증"
+    private Integer point;             // m.point
 }

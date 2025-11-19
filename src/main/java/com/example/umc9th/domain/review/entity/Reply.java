@@ -13,7 +13,7 @@ import lombok.*;
 public class Reply {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long reply_id;
+    private Long replyId;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;

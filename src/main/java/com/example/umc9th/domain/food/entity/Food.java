@@ -19,7 +19,7 @@ import java.util.List;
 public class Food {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long food_id;
+    private Long foodId;
 
     @Enumerated(EnumType.STRING)
     private FoodType name;
@@ -28,6 +28,6 @@ public class Food {
     private List<Store> stores = new ArrayList<>();
 
     @OneToMany(mappedBy = "food")
-    private List<MemberFood> member_foods = new ArrayList<>();
+    private List<MemberFood> memberFoods = new ArrayList<>();
 }
 

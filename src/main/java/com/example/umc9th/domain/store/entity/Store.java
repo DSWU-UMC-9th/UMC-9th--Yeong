@@ -21,7 +21,7 @@ import java.util.List;
 public class Store {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long store_id;
+    private Long storeId;
 
     @Column(nullable = false)
     private String name;
@@ -30,7 +30,7 @@ public class Store {
     private String address;
 
     @Column(nullable = false)
-    private String manager_number;
+    private String managerNumber;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id", nullable = false)

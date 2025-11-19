@@ -19,15 +19,13 @@ import java.util.List;
 public class Review extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long review_id;
+    private Long reviewId;
 
     @Column(nullable = false)
-    private Float score;
+    private Integer score;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
-
-    // 연관관계
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)

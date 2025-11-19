@@ -15,7 +15,7 @@ import lombok.*;
 
 public class TermMember {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long term_member_id;
+    private Long termMemberId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)
