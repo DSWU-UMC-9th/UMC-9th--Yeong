@@ -14,7 +14,7 @@ import lombok.*;
 public class MemberFood {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long member_food_id;
+    private Long id;
 
     // 외래키: member_id
     @ManyToOne

@@ -1,5 +1,6 @@
 package com.example.umc9th.domain.mission.entity;
 
+import com.example.umc9th.domain.mission.enums.MissionState;
 import com.example.umc9th.domain.store.entity.Store;
 import com.example.umc9th.domain.member.entity.mapping.MemberMission;
 import jakarta.persistence.*;
@@ -19,7 +20,7 @@ import java.util.List;
 public class Mission {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long mission_id;
+    private Long missionId;
 
     @Column(nullable = false)
     private String todo;
@@ -28,12 +29,15 @@ public class Mission {
     private String reward;
 
     @Column(nullable = false)
-    private LocalDateTime due_date;
+    private MissionState state;
+
+    @Column(nullable = false)
+    private LocalDateTime dueDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id", nullable = false)
     private Store store;
 
     @OneToMany(mappedBy = "mission")
-    private List<MemberMission> member_missions = new ArrayList<>();
+    private List<MemberMission> memberMissions = new ArrayList<>();
 }

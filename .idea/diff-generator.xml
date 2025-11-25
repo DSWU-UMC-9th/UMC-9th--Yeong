@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DiffGenerationConfig">
+    <option name="snapshotDbValue" value="23a74b6c-3b5a-448e-800d-7c5e4c5202b5" />
+    <option name="sourceModelValue" value="umc9th.main:entityManagerFactory" />
+    <option name="targetDbValue" value="23a74b6c-3b5a-448e-800d-7c5e4c5202b5" />
+  </component>
+</project>

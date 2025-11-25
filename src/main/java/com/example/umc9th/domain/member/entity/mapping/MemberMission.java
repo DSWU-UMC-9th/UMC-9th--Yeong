@@ -2,6 +2,8 @@ package com.example.umc9th.domain.member.entity.mapping;
 
 import com.example.umc9th.domain.mission.entity.Mission;
 import com.example.umc9th.domain.member.entity.Member;
+import com.example.umc9th.domain.mission.enums.MissionState;
+import com.example.umc9th.domain.review.enums.ReviewState;
 import com.example.umc9th.global.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -10,16 +12,18 @@ import lombok.*;
 @Entity
 @Getter @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class MemberMission extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long member_mission_id;
+    private Long memberMissionId;
 
     @Column(nullable = false)
-    private Byte mission_state;
+    private MissionState missionState;
 
     @Column(nullable = false)
-    private Byte review_state;
+    private ReviewState reviewState;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)

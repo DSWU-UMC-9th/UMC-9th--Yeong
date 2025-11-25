@@ -12,4 +12,4 @@ public interface ReviewQueryDsl {
     //검색 API
     List<Review> searchReview(Predicate predicate);
     List<ReviewResponse> findMyReviews(Predicate predicate);
-    }
+}

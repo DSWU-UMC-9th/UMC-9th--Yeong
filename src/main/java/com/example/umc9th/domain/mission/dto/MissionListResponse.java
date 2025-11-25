@@ -1,14 +1,21 @@
 package com.example.umc9th.domain.mission.dto;
 
-public interface MissionListResponse {
+import com.example.umc9th.domain.food.enums.FoodType;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-    Long getMissionId();          // m.mission_id
-    String getMissionName();      // m.todo
-    Integer getRewardPoint();     // m.reward
-    String getDeadline();         // m.due_date
-    Integer getDDay();            // DATEDIFF(m.due_date, CURDATE())
-    String getStoreName();        // s.name
-    Long getFoodName();           // s.food_id (※ 실제는 Food 엔티티 조인 시 이름으로 바꿔도 가능)
-    String getStoreLocation();    // s.location_id
-    String getCursorValue();      // cursor_value
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+@Getter
+@AllArgsConstructor
+public class MissionListResponse {
+
+    private Long missionId;
+    private String todo;
+    private String reward;
+    private LocalDateTime dueDate;
+    private String storeName;
+    private FoodType foodName;
+    private String locationName;
 }

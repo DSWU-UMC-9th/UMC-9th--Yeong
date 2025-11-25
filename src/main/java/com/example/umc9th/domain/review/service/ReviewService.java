@@ -1,0 +1,32 @@
+package com.example.umc9th.domain.review.service;
+
+import com.example.umc9th.domain.member.entity.Member;
+import com.example.umc9th.domain.member.repository.MemberCRepository;
+import com.example.umc9th.domain.review.converter.ReviewConverter;
+import com.example.umc9th.domain.review.dto.ReviewRequest;
+import com.example.umc9th.domain.review.entity.Review;
+import com.example.umc9th.domain.review.repository.ReviewRepository;
+import com.example.umc9th.domain.store.entity.Store;
+import com.example.umc9th.domain.store.repository.StoreRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@RequiredArgsConstructor
+public class ReviewService {
+
+    private final ReviewRepository reviewRepository;
+    private final MemberCRepository memberCRepository;
+    private final StoreRepository storeRepository;
+
+    @Transactional
+    public Review createReview(Long loginMemberId, ReviewRequest reviewRequest) {
+        Member member = memberCRepository.findById(loginMemberId).orElse(null);
+        Store store = storeRepository.findById(reviewRequest.getStoreId()).orElse(null);
+
+        Review review = ReviewConverter.toEntity(member,store, reviewRequest);
+        return reviewRepository.save(review);
+    }
+}
+
