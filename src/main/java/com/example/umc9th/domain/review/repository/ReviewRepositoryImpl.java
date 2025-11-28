@@ -2,6 +2,7 @@ package com.example.umc9th.domain.review.repository;
 
 import com.example.umc9th.domain.location.entity.QLocation;
 import com.example.umc9th.domain.member.entity.QMember;
+import com.example.umc9th.domain.review.dto.ReviewResDTO;
 import com.example.umc9th.domain.review.dto.ReviewResponse;
 import com.example.umc9th.domain.review.entity.QReview;
 import com.example.umc9th.domain.review.entity.Review;
@@ -54,4 +55,39 @@ public class ReviewRepositoryImpl implements ReviewQueryDsl {
                 .where(predicate)
                 .fetch();
     }
+
+    public ReviewResDTO.ReviewPreViewListDTO findReview() {
+        return findReview(null);
+    }
+
+    @Override
+    public ReviewResDTO.ReviewPreViewListDTO findReview(Predicate predicate) {
+
+        QReview review = QReview.review;
+        QStore store = QStore.store;
+        QMember member = QMember.member;
+
+        List<ReviewResDTO.ReviewPreViewDTO> list = queryFactory
+                .select(Projections.constructor(
+                        ReviewResDTO.ReviewPreViewDTO.class,
+                        member.name,         // ownerNickname
+                        review.score,            // score
+                        review.content,          // body
+                        review.createdAt         // createdAt
+                ))
+                .from(review)
+                .leftJoin(review.member, member)
+                .where(predicate)
+                .fetch();
+
+        return ReviewResDTO.ReviewPreViewListDTO.builder()
+                .reviewList(list)
+                .listSize(list.size())
+                .totalPage(1)
+                .totalElements((long) list.size())
+                .isFirst(true)
+                .isLast(true)
+                .build();
+    }
+
 }

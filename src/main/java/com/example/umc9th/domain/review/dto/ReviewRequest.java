@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ReviewRequest {
     private Long storeId;
-    private Integer score;
+    private Float score;
     private String content;
 }
