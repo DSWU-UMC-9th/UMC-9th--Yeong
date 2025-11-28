@@ -17,10 +17,4 @@ public class ReviewResponse {
     private String content;
     private LocalDateTime createdAt;
 
-    public ReviewResponse(Long reviewId, Long storeId, String content, Float rating) {
-        this.reviewId = reviewId;
-        this.storeId = storeId;
-        this.content = content;
-        this.score = rating;
-    }
 }

@@ -9,6 +9,7 @@ import com.example.umc9th.domain.review.service.ReviewQueryService;
 import com.example.umc9th.domain.review.service.ReviewService;
 import com.example.umc9th.global.apiPayload.ApiResponse;
 import com.example.umc9th.global.apiPayload.code.GeneralSuccessCode;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +26,7 @@ public class ReviewController implements ReviewControllerDocs {
     // 리뷰 추가
     @PostMapping
     @Override
+    @Valid
     public ApiResponse<ReviewResponse> addReview(
             @RequestParam Long memberId,
             @RequestBody ReviewRequest request
@@ -40,6 +42,7 @@ public class ReviewController implements ReviewControllerDocs {
     // 리뷰 목록 조회
     @GetMapping
     @Override
+    @Valid
     public ApiResponse<ReviewResDTO.ReviewPreViewListDTO> getReviews(
             @RequestParam String storeName,
             @RequestParam(defaultValue = "1") Integer page
@@ -53,6 +56,7 @@ public class ReviewController implements ReviewControllerDocs {
     // 검색 API
     @GetMapping("/search")
     @Override
+    @Valid
     public ApiResponse<List<ReviewResponse>> searchReview(
             @RequestParam String query,
             @RequestParam String type
@@ -67,6 +71,7 @@ public class ReviewController implements ReviewControllerDocs {
     // 내가 쓴 리뷰 조회
     @GetMapping("/my")
     @Override
+    @Valid
     public ApiResponse<List<ReviewResponse>> getMyReviews(
             @RequestParam(required = false) Long memberId,
             @RequestParam(required = false) Long storeId,
