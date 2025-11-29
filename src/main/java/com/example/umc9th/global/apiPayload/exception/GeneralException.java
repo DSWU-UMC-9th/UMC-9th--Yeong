@@ -12,4 +12,8 @@ public class GeneralException extends RuntimeException {
         super(code.getMessage());
         this.code = code;
     }
+
+    public BaseErrorCode getErrorCode() {
+        return code;
+    }
 }

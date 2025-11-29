@@ -1,56 +1,48 @@
 package com.example.umc9th.domain.review.repository;
 
-import com.example.umc9th.domain.location.entity.QLocation;
-import com.example.umc9th.domain.member.entity.QMember;
-import com.example.umc9th.domain.review.dto.ReviewResponse;
 import com.example.umc9th.domain.review.entity.QReview;
 import com.example.umc9th.domain.review.entity.Review;
-import com.example.umc9th.domain.store.entity.QStore;
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
-import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 
-@Repository
 @RequiredArgsConstructor
-public class ReviewRepositoryImpl implements ReviewQueryDsl {
+public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
 
-    private final JPAQueryFactory queryFactory; // 스프링 빈으로 등록된 factory만 사용!
+    private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<ReviewResponse> findMyReviews(Predicate predicate) {
-
+    public Page<Review> findAllByCondition(BooleanBuilder builder, PageRequest pageable) {
         QReview review = QReview.review;
-        QStore store = QStore.store;
-        QMember member = QMember.member;
 
-        return queryFactory
-                .select(Projections.constructor(ReviewResponse.class,
-                        review.reviewId,
-                        store.storeId,
-                        review.content,
-                        review.score))
-                .from(review)
-                .leftJoin(review.store, store)
-                .leftJoin(review.member, member)
-                .where(predicate)
+        List<Review> content = queryFactory
+                .selectFrom(review)
+                .where(builder)
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
                 .fetch();
+
+        long total = queryFactory
+                .select(review.count())
+                .from(review)
+                .where(builder)
+                .fetchOne();
+
+        return new PageImpl<>(content, pageable, total);
     }
 
     @Override
     public List<Review> searchReview(Predicate predicate) {
-
         QReview review = QReview.review;
-        QStore store = QStore.store;
-        QLocation location = QLocation.location;
 
         return queryFactory
                 .selectFrom(review)
-                .leftJoin(store).on(store.storeId.eq(review.store.storeId))
-                .leftJoin(location).on(location.locationId.eq(store.location.locationId))
                 .where(predicate)
                 .fetch();
     }
