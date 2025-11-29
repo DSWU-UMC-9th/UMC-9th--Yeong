@@ -46,11 +46,13 @@ public interface ReviewControllerDocs {
             @RequestParam String type
     );
 
-    // 내가 쓴 리뷰 조회
+    // 1. 내가 작성한 리뷰 목록
     @GetMapping("/my")
-    ApiResponse<List<ReviewResponse>> getMyReviews(
-            @RequestParam(required = false) Long memberId,
+    ApiResponse<ReviewResDTO.ReviewPreViewListDTO> getMyReviews(
+            @RequestParam Long memberId,// 필수요소
+            @RequestParam Integer page,
             @RequestParam(required = false) Long storeId,
             @RequestParam(required = false) Float ratingGroup
     );
+
 }

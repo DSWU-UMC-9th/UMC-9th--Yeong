@@ -1,9 +1,12 @@
 package com.example.umc9th.domain.review.service;
 
 import com.example.umc9th.domain.location.entity.QLocation;
+import com.example.umc9th.domain.member.entity.Member;
+import com.example.umc9th.domain.member.exception.MemberException;
+import com.example.umc9th.domain.member.exception.code.MemberErrorCode;
+import com.example.umc9th.domain.member.repository.MemberRepository;
 import com.example.umc9th.domain.review.converter.ReviewConverter;
 import com.example.umc9th.domain.review.dto.ReviewResDTO;
-import com.example.umc9th.domain.review.dto.ReviewResponse;
 import com.example.umc9th.domain.review.entity.QReview;
 import com.example.umc9th.domain.review.entity.Review;
 import com.example.umc9th.domain.review.exception.ReviewException;
@@ -27,29 +30,7 @@ public class ReviewQueryServiceImpl implements ReviewQueryService {
 
     private final ReviewRepository reviewRepository;
     private final StoreRepository storeRepository;
-
-    @Override
-    public List<ReviewResponse> findMyReviews(Long memberId, Long storeId, Float ratingGroup){
-
-        QReview review = QReview.review;
-        BooleanBuilder builder = new BooleanBuilder();
-
-        if (memberId != null) {
-            builder.and(review.member.memberId.eq(memberId));
-        }
-
-        if (storeId != null) {
-            builder.and(review.store.storeId.eq(storeId));
-        }
-
-        if (ratingGroup != null) {
-            double lower = ratingGroup;
-            double upper = ratingGroup + 0.9;
-            builder.and(review.score.between(lower, upper));
-        }
-
-        return reviewRepository.findMyReviews(builder);
-    }
+    private final MemberRepository memberRepository;
 
 
     @Override
@@ -102,4 +83,44 @@ public class ReviewQueryServiceImpl implements ReviewQueryService {
         //- 결과를 응답 DTO로 변환한다 (컨버터 이용)
         return ReviewConverter.toReviewPreviewListDTO(result);
     }
+
+
+    @Override
+    public ReviewResDTO.ReviewPreViewListDTO findMyReviews(Long memberId, Integer page,
+                                                           Long storeId, Float ratingGroup) {
+
+        QReview review = QReview.review;
+
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberException(MemberErrorCode.NOT_FOUND));
+
+        if (page <= 0) {
+            throw new ReviewException(ReviewErrorCode.INVALID_REQUEST);
+        }
+
+        PageRequest pageRequest = PageRequest.of(page - 1, 10);
+
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(review.member.eq(member));
+
+        if (storeId != null) {
+            Store store = storeRepository.findById(storeId)
+                    .orElseThrow(() -> new StoreException(StoreErrorCode.NOT_FOUND));
+
+            builder.and(review.store.eq(store));
+        }
+
+        if (ratingGroup != null) {
+            double lower = ratingGroup;
+            double upper = ratingGroup + 0.9;
+            builder.and(review.score.between(lower, upper));
+        }
+
+        Page<Review> result =
+                reviewRepository.findAllByCondition(builder, pageRequest);
+
+        return ReviewConverter.toReviewPreviewListDTO(result);
+    }
+
+
 }

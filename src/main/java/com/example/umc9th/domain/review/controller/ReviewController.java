@@ -71,13 +71,13 @@ public class ReviewController implements ReviewControllerDocs {
     // 내가 쓴 리뷰 조회
     @GetMapping("/my")
     @Override
-    @Valid
-    public ApiResponse<List<ReviewResponse>> getMyReviews(
-            @RequestParam(required = false) Long memberId,
+    public ApiResponse<ReviewResDTO.ReviewPreViewListDTO> getMyReviews(
+            @RequestParam Long memberId,
+            @RequestParam(defaultValue = "1") Integer page,
             @RequestParam(required = false) Long storeId,
             @RequestParam(required = false) Float ratingGroup
     ) {
-        List<ReviewResponse> reviews = reviewQueryService.findMyReviews(memberId, storeId, ratingGroup);
+        ReviewResDTO.ReviewPreViewListDTO reviews = reviewQueryService.findMyReviews(memberId,page, storeId, ratingGroup);
         return ApiResponse.onSuccess(GeneralSuccessCode.OK, reviews);
     }
 }
