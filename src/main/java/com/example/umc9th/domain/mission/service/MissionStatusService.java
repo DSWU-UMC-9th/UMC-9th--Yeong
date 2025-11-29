@@ -32,4 +32,23 @@ public class MissionStatusService {
                 mm.getCreatedAt()
         );
     }
+
+    @Transactional
+    public MemberMissionResponse completedMission(Long memberMissionId) {
+
+        MemberMission mm = memberMissionRepository.findById(memberMissionId)
+                .orElseThrow(() -> new RuntimeException("미션을 찾을 수 없습니다."));
+
+        mm.setMissionState(MissionState.COMPLETED);
+
+        return new MemberMissionResponse(
+                mm.getMemberMissionId(),
+                mm.getMission().getMissionId(),
+                mm.getMission().getTodo(),
+                mm.getMission().getReward(),
+                mm.getMission().getDueDate(),
+                mm.getMissionState(),
+                mm.getCreatedAt()
+        );
+    }
 }

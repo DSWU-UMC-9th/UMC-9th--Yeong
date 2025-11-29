@@ -26,4 +26,17 @@ public class MissionStatusController {
 
         return ApiResponse.onSuccess(GeneralSuccessCode.OK, result);
     }
+
+    /**
+     * 완료된 미션 조회
+     */
+    @GetMapping("/completed")
+    public ApiResponse<MemberMissionResponse> completedMission(
+            @RequestParam Long memberMissionId
+    ) {
+        MemberMissionResponse result =
+                missionStatusService.completeMission(memberMissionId);
+
+        return ApiResponse.onSuccess(GeneralSuccessCode.OK, result);
+    }
 }
