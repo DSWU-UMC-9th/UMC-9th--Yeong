@@ -18,9 +18,11 @@ public class MemberMissionService {
     private final MemberMissionRepository memberMissionRepository;
 
     public Page<MemberMissionResponse> getMyMissions(Long loginMemberId,MissionState missionState, int page) {
+
+
         return memberMissionRepository.findMemberMissions(
                 loginMemberId,
-                List.of(MissionState.IN_PROGRESS, MissionState.COMPLETED),
+                List.of(missionState),
                 PageRequest.of(page, 10)
         );
     }
