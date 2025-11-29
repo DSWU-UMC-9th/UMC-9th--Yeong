@@ -15,6 +15,15 @@ import java.util.List;
 
 
 public interface ReviewControllerDocs {
+
+
+    // 리뷰 추가
+    @PostMapping
+    ApiResponse<ReviewResponse> addReview(
+            @RequestParam Long memberId,
+            @RequestBody ReviewRequest request
+    );
+
     @Operation(
             summary = "가게의 리뷰 목록 조회 API By 마크 (개발 중)",
             description = "특정 가게의 리뷰를 모두 조회합니다. 페이지네이션으로 제공합니다."
@@ -23,13 +32,6 @@ public interface ReviewControllerDocs {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "성공"),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "실패")
     })
-
-    // 리뷰 추가
-    @PostMapping
-    ApiResponse<ReviewResponse> addReview(
-            @RequestParam Long memberId,
-            @RequestBody ReviewRequest request
-    );
 
     // 리뷰 목록 조회
     @GetMapping
@@ -45,6 +47,15 @@ public interface ReviewControllerDocs {
             @RequestParam String query,
             @RequestParam String type
     );
+
+    @Operation(
+            summary = "내가 작성한 리뷰 목록 조회",
+            description = "나의 리뷰를 모두 조회합니다. 페이지네이션으로 제공합니다."
+    )
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "성공"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "실패")
+    })
 
     // 1. 내가 작성한 리뷰 목록
     @GetMapping("/my")
