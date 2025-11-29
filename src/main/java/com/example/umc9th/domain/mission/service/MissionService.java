@@ -19,16 +19,16 @@ public class MissionService {
 
     public List<MissionListWithDDay> getAvailableMissions(
             Long loginMemberId,
-            String location,
-            Integer pageSize,
+            String storeName,
+            Integer page,
             LocalDate lastDueDate,
             Long lastMissionId
     ) {
         List<MissionListResponse> rows = (lastDueDate == null || lastMissionId == null)
                 ? missionRepository.findAvailableMissionsFirstPage(
-                loginMemberId, location, PageRequest.of(0, pageSize))
+                loginMemberId, storeName, PageRequest.of(page, 10))
                 : missionRepository.findAvailableMissionsAfterCursor(
-                loginMemberId, location, lastDueDate, lastMissionId, PageRequest.of(0, pageSize));
+                loginMemberId, storeName, lastDueDate, lastMissionId, PageRequest.of(page, 10));
 
         LocalDate today = LocalDate.now();
 

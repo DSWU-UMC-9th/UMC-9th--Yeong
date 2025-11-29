@@ -1,6 +1,5 @@
 package com.example.umc9th.domain.mission.controller;
 
-import com.example.umc9th.domain.mission.converter.MissionChallengeConverter;
 import com.example.umc9th.domain.mission.dto.MissionChallengeRequest;
 import com.example.umc9th.domain.mission.dto.MissionChallengeResponse;
 import com.example.umc9th.domain.mission.service.MissionChallengeService;
@@ -15,6 +14,7 @@ public class MissionChallengeController {
 
     private final MissionChallengeService missionChallengeService;
 
+    //미션 도전하기 api
     @PostMapping
     public ApiResponse<MissionChallengeResponse> challengeMission(
             @RequestParam Long memberId,

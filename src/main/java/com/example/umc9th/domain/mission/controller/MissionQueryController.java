@@ -17,26 +17,20 @@ public class MissionQueryController {
 
     private final MissionService missionService;
 
-    /**
-     * 특정 지역(가게 포함)의 진행 가능한 미션 목록 조회
-     * - 로그인 사용자 ID
-     * - location
-     * - pageSize
-     * - cursor 기반 (lastDueDate, lastMissionId)
-     */
+
     @GetMapping("/available")
     public ApiResponse<List<MissionListWithDDay>> getAvailableMissions(
             @RequestParam Long memberId,
-            @RequestParam String location,
-            @RequestParam(defaultValue = "10") Integer pageSize,
+            @RequestParam String storeName,
+            @RequestParam(defaultValue = "1") Integer page,
             @RequestParam(required = false) LocalDate lastDueDate,
             @RequestParam(required = false) Long lastMissionId
     ) {
         List<MissionListWithDDay> missions =
                 missionService.getAvailableMissions(
                         memberId,
-                        location,
-                        pageSize,
+                        storeName,
+                        page,
                         lastDueDate,
                         lastMissionId
                 );
