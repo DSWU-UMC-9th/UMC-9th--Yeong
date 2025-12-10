@@ -1,60 +1,53 @@
-//// com/example/umc9th/domain/mission/service/MissionQueryService.java
-//package com.example.umc9th.domain.mission.service;
-//
-//import com.example.umc9th.domain.mission.dto.MissionListResponse;
-//import com.example.umc9th.domain.mission.repository.MissionRepository;
-//import lombok.RequiredArgsConstructor;
-//import org.springframework.data.domain.PageRequest;
-//import org.springframework.stereotype.Service;
-//
-//import java.time.LocalDate;
-//import java.time.temporal.ChronoUnit;
-//import java.util.List;
-//
-//@Service
-//@RequiredArgsConstructor
-//public class MissionService {
-//
-//    private final MissionRepository missionRepository;
-//
-//    public List<MissionListWithDDay> getAvailableMissions(
-//            Long loginMemberId,
-//            String location,
-//            Integer pageSize,
-//            LocalDate lastDueDate,
-//            Long lastMissionId
-//    ) {
-//        List<MissionListResponse> rows = (lastDueDate == null || lastMissionId == null)
-//                ? missionRepository.findAvailableMissionsFirstPage(
-//                loginMemberId, location, PageRequest.of(0, pageSize))
-//                : missionRepository.findAvailableMissionsAfterCursor(
-//                loginMemberId, location, lastDueDate, lastMissionId, PageRequest.of(0, pageSize));
-//
-//        LocalDate today = LocalDate.now();
-//
-//        return rows.stream()
-//                .map(r -> new MissionListWithDDay(
-//                        r.getMissionId(),
-//                        r.getTodo(),
-//                        Integer.parseInt(r.getReward()), // reward는 Mission에서 String이므로 변환 필요
-//                        r.getDueDate().toLocalDate(),
-//                        (int) ChronoUnit.DAYS.between(today, r.getDueDate().toLocalDate()), // D-Day 계산
-//                        r.getStoreName(),
-//                        r.getFoodName().toString(), // FoodType → String
-//                        r.getLocationName()
-//                ))
-//                .toList();
-//    }
-//
-//    // API 응답 전용 뷰 모델 (dDay 포함)
-//    public record MissionListWithDDay(
-//            Long missionId,
-//            String missionName,
-//            Integer rewardPoint,
-//            LocalDate deadline,
-//            Integer dDay,
-//            String storeName,
-//            String foodName,
-//            String storeLocation
-//    ) {}
-//}
+// com/example/umc9th/domain/mission/service/MissionQueryService.java
+package com.example.umc9th.domain.mission.service;
+
+import com.example.umc9th.domain.mission.converter.MissionConverter;
+import com.example.umc9th.domain.mission.dto.MissionResDTO;
+import com.example.umc9th.domain.mission.entity.Mission;
+import com.example.umc9th.domain.mission.repository.MissionRepository;
+import com.example.umc9th.domain.review.dto.ReviewResDTO;
+import com.example.umc9th.domain.review.exception.ReviewException;
+import com.example.umc9th.domain.review.exception.code.ReviewErrorCode;
+import com.example.umc9th.domain.store.entity.Store;
+import com.example.umc9th.domain.store.exception.StoreException;
+import com.example.umc9th.domain.store.exception.code.StoreErrorCode;
+import com.example.umc9th.domain.store.repository.StoreRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+public class MissionService {
+
+    private final MissionRepository missionRepository;
+    private final StoreRepository storeRepository;
+
+    public MissionResDTO.MissionPreViewListDTO getMissionsByStore (
+            String storeName,
+            Integer page
+    ) {
+
+        Store store = storeRepository.findByName(storeName)
+                //    - 없으면 예외 터뜨린다
+                .orElseThrow(() -> new StoreException(StoreErrorCode.NOT_FOUND));
+
+        if (page <= 0) {
+            throw new ReviewException(ReviewErrorCode.INVALID_REQUEST);
+        }
+
+        //- 가게에 맞는 리뷰를 가져온다 (Offset 페이징)
+        PageRequest pageRequest = PageRequest.of(page -1, 10);
+
+
+
+        Page<Mission> result = missionRepository.findAllByStore(store, pageRequest);
+
+        //- 결과를 응답 DTO로 변환한다 (컨버터 이용)
+        return MissionConverter.toMissionPreviewListDTO(result);
+
+
+}
+}
+

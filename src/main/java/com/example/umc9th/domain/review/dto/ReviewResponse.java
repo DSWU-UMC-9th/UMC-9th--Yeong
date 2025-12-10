@@ -13,14 +13,8 @@ public class ReviewResponse {
     private Long reviewId;
     private Long storeId;
     private Long memberId;
-    private Integer score;
+    private Float score;
     private String content;
     private LocalDateTime createdAt;
 
-    public ReviewResponse(Long reviewId, Long storeId, String content, Integer rating) {
-        this.reviewId = reviewId;
-        this.storeId = storeId;
-        this.content = content;
-        this.score = rating;
-    }
 }

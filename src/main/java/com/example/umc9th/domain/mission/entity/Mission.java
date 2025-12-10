@@ -1,11 +1,12 @@
 package com.example.umc9th.domain.mission.entity;
 
+import com.example.umc9th.domain.member.entity.mapping.MemberMission;
 import com.example.umc9th.domain.mission.enums.MissionState;
 import com.example.umc9th.domain.store.entity.Store;
-import com.example.umc9th.domain.member.entity.mapping.MemberMission;
 import jakarta.persistence.*;
 import lombok.*;
-import java.time.LocalDateTime;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,13 +27,13 @@ public class Mission {
     private String todo;
 
     @Column(nullable = false)
-    private String reward;
+    private Integer reward;
 
     @Column(nullable = false)
     private MissionState state;
 
     @Column(nullable = false)
-    private LocalDateTime dueDate;
+    private LocalDate dueDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id", nullable = false)
