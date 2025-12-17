@@ -7,8 +7,9 @@ import com.example.umc9th.domain.member.enums.Address;
 import com.example.umc9th.domain.member.enums.Gender;
 import com.example.umc9th.domain.review.entity.Review;
 import com.example.umc9th.domain.term.entity.mapping.TermMember;
-import com.example.umc9th.global.entity.BaseEntity;
-import com.example.umc9th.global.entity.auth.enums.SocialType;
+import com.example.umc9th.global.auth.entity.BaseEntity;
+import com.example.umc9th.global.auth.enums.Role;
+import com.example.umc9th.global.auth.enums.SocialType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,6 +22,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
+@Setter
 @Table(name = "member")
 public class Member extends BaseEntity { //created_at, deleted_at 포함
 
@@ -45,8 +47,6 @@ public class Member extends BaseEntity { //created_at, deleted_at 포함
     @Column(name = "detail_address"  , nullable = false)
     private String detailAddress;
 
-    @Column(name= "email", nullable = false)
-    private String email;
 
     @Column(name = "point" , nullable = false)
     private Integer point=0;
@@ -60,6 +60,17 @@ public class Member extends BaseEntity { //created_at, deleted_at 포함
     @Column(name = "social_type", nullable = false)
     @Enumerated(EnumType.STRING)
     private SocialType socialType = SocialType.LOCAL;
+
+
+
+    @Column(name= "email", nullable = false, unique = true)
+    private String email;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     // 연관관계
 
