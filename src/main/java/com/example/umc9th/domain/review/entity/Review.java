@@ -3,7 +3,7 @@ package com.example.umc9th.domain.review.entity;
 
 import com.example.umc9th.domain.store.entity.Store;
 import com.example.umc9th.domain.member.entity.Member;
-import com.example.umc9th.global.entity.BaseEntity;
+import com.example.umc9th.global.auth.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.ArrayList;

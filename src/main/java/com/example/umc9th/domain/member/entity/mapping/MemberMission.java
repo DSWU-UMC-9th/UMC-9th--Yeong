@@ -4,7 +4,7 @@ import com.example.umc9th.domain.mission.entity.Mission;
 import com.example.umc9th.domain.member.entity.Member;
 import com.example.umc9th.domain.mission.enums.MissionState;
 import com.example.umc9th.domain.review.enums.ReviewState;
-import com.example.umc9th.global.entity.BaseEntity;
+import com.example.umc9th.global.auth.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
